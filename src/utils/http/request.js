@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { ElLoading } from 'element-plus'
+import { getCache } from '@/utils/token/cache'
 
 class Request {
   instance
@@ -14,6 +15,7 @@ class Request {
           text: '正在请求数据...',
           background: 'rgba(0, 0, 0, 0.7)'
         })
+        config.headers.Authorization = getCache('token')
         return config
       },
       (error) => {
