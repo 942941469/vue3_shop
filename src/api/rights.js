@@ -1,8 +1,8 @@
 import http from '@/utils/http/api'
-// 获取菜单列表
-export function getMenu() {
+// 获取权限列表
+export function getRights() {
   return http.instance.request({
-    url: '/menus',
+    url: 'rights/list',
     method: 'get'
   })
 }

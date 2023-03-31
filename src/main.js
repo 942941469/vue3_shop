@@ -4,5 +4,7 @@ import router from './router'
 import store from './store'
 import 'normalize.css'
 import 'element-plus/dist/index.css'
-
-createApp(App).use(store).use(router).mount('#app')
+import { directiveTime } from '@/utils/hook/time'
+const app = createApp(App)
+directiveTime(app)
+app.use(store).use(router).mount('#app')

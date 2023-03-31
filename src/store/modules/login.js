@@ -1,5 +1,5 @@
 import { getAccount } from '@/api/login'
-import { setCache } from '@/utils/token/cache'
+import { getCache, setCache } from '@/utils/token/cache'
 import { getMenu } from '@/api/menu'
 
 const state = {
@@ -7,8 +7,8 @@ const state = {
   userinfo: {},
   // 侧边栏是否展开
   isCollapse: false,
-  // 菜单数据
-  menus: [],
+  // 菜单数据 如果刷新则使用本地存储
+  menus: getCache('login').menus || [],
   // 面包屑数据
   breadcrumbList: [],
   // 当前显示标签

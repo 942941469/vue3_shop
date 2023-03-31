@@ -1,4 +1,6 @@
-<template><div></div></template>
+<template>
+  <el-card> </el-card>
+</template>
 
 <script>
 export default {
