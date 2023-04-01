@@ -1,20 +1,13 @@
 import axios from 'axios'
-import { ElLoading } from 'element-plus'
 import { getCache } from '@/utils/token/cache'
 
 class Request {
   instance
-  loadingInstance
   constructor(config) {
     this.instance = axios.create(config)
     // 请求拦截器
     this.instance.interceptors.request.use(
       (config) => {
-        this.loadingInstance = ElLoading.service({
-          lock: true,
-          text: '正在请求数据...',
-          background: 'rgba(0, 0, 0, 0.7)'
-        })
         config.headers.Authorization = getCache('token')
         return config
       },
@@ -25,7 +18,6 @@ class Request {
     // 响应拦截器
     this.instance.interceptors.response.use(
       (res) => {
-        this.loadingInstance.close()
         return res.data
       },
       (error) => {

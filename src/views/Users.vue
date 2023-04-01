@@ -38,11 +38,15 @@
         </el-table-column>
         <el-table-column label="操作" width="400">
           <template v-slot="{ row }">
-            <el-button type="primary" size="small" :icon="EditPen">编辑</el-button>
-            <el-button type="danger" size="small" @click="deleteUser(row)" :icon="Delete"
-              >删除</el-button
+            <el-button type="primary" size="small" @click="editUser(row)" :icon="EditPen"
+              >编辑</el-button
             >
-            <el-button type="warning" size="small" :icon="Setting">分配角色</el-button>
+            <el-button type="danger" size="small" @click="deleteUser(row)" :icon="Delete">
+              删除
+            </el-button>
+            <el-button type="warning" size="small" @click="getRole(row)" :icon="Setting"
+              >分配角色</el-button
+            >
           </template>
         </el-table-column>
       </el-table>
@@ -58,6 +62,8 @@
       />
     </el-card>
   </div>
+  <UserDialog @getUserList="resetForm" />
+  <UserRoleDialog @getUserList="resetForm" :username="username" :role_name="role_name" :id="id" />
 </template>
 
 <script setup>
@@ -66,6 +72,8 @@ import { useStore } from 'vuex'
 import { computed, onMounted, ref } from 'vue'
 import { changeUserStatus, deleteUsersFromId } from '@/api/user'
 import { ElMessage, ElMessageBox } from 'element-plus'
+import UserDialog from '@/components/private/user/UserDialog.vue'
+import UserRoleDialog from '@/components/private/user/UserRoleDialog.vue'
 const store = useStore()
 // 每页条数
 const pageSize = ref(5)
@@ -77,17 +85,21 @@ const userList = computed(() => store.state.user.usersList)
 const total = computed(() => store.state.user.total)
 // 查询参数
 const query = ref('')
+// 分配角色对话框的数据
+const username = ref('')
+const role_name = ref('')
+const id = ref()
 // 获取用户列表数据
 onMounted(() => {
   store.dispatch('user/getUsersList', { pagenum: 1, pagesize: 5 })
 })
 // 页码跳转
-const handleSizeChange = (newPageNum) => {
+const handleCurrentChange = (newPageNum) => {
   pageNum.value = newPageNum
   store.dispatch('user/getUsersList', { pagenum: newPageNum, pagesize: pageSize.value })
 }
 // 改变显示条数
-const handleCurrentChange = () => {
+const handleSizeChange = () => {
   store.dispatch('user/getUsersList', { pagenum: pageNum.value, pagesize: pageSize.value })
 }
 // 改变用户状态
@@ -133,6 +145,22 @@ const deleteUser = (row) => {
       ElMessage.error('删除用户失败')
     }
   })
+}
+// 添加用户
+const addUserDialog = () => {
+  store.commit('user/changeDialogFormVisible', true, 'add')
+}
+// 修改用户
+const editUser = (row) => {
+  store.commit('user/changeDialogFormVisible', true, 'edit')
+  store.dispatch('user/editUser', row.id)
+}
+// 分配角色
+const getRole = (row) => {
+  username.value = row.username
+  role_name.value = row.role_name
+  id.value = row.id
+  store.commit('user/changeUserRoleDialogVisible', true)
 }
 </script>
 

@@ -12,9 +12,9 @@
 </template>
 
 <script setup>
-import Header from '@/components/Header.vue'
-import NavMenu from '@/components/NavMenu.vue'
-import Breadcrumb from '@/components/Breadcrumb.vue'
+import Header from '@/components/common/Header.vue'
+import NavMenu from '@/components/common/NavMenu.vue'
+import Breadcrumb from '@/components/common/Breadcrumb.vue'
 import { useStore } from 'vuex'
 import { computed } from 'vue'
 const store = useStore()
@@ -23,7 +23,7 @@ const isCollapse = computed(() => store.state.login.isCollapse)
 
 <style lang="scss" scoped>
 .el-container {
-  height: 100vh;
+  height: 100%;
 }
 .el-header {
   background-color: #7ed56f;

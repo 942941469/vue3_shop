@@ -33,6 +33,8 @@ watch(
   (newValue) => {
     let flag = true
     store.commit('login/upDataActiveName', newValue.meta.title)
+    // 更改页面标题
+    document.title = 'Vue3-Admin-' + newValue.meta.title
     // 如果数组为空或者数组中每月当前标签则执行添加操作
     breadcrumbList.value.forEach((item) => {
       if (item.title === newValue.meta.title) {
