@@ -37,7 +37,7 @@ export function editUser(id, data) {
     data
   })
 }
-// 分配用户权限
+// 分配用户角色
 export function assignUserRole(id, data) {
   return http.instance.request({
     url: `users/${id}/role`,

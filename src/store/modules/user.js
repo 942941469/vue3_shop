@@ -8,9 +8,9 @@ const state = {
   total: 0,
   // 编辑对话框
   dialogFormVisible: false,
-  // 用户权限选择对话框
+  // 用户角色选择对话框
   assignRoleDialogFormVisible: false,
-  // 修改用户的表单数据
+  // 用户表单数据
   form: {
     username: '',
     email: '',
@@ -28,7 +28,7 @@ const mutations = {
     state.usersList = data.users
     state.total = data.total
   },
-  changeDialogFormVisible(state, visible, type) {
+  changeDialogFormVisible(state, { visible, type }) {
     state.dialogFormVisible = visible
     state.type = type
   },
@@ -64,6 +64,7 @@ const actions = {
   async editUser({ commit }, data) {
     const res = await getUserFromId(data)
     if (res.meta.status === 200) {
+      commit('changeDialogFormVisible', { visible: true, type: 'edit' })
       commit('upDataForm', res.data)
     } else {
       ElMessage.error('获取数据失败')

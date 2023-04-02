@@ -148,11 +148,10 @@ const deleteUser = (row) => {
 }
 // 添加用户
 const addUserDialog = () => {
-  store.commit('user/changeDialogFormVisible', true, 'add')
+  store.commit('user/changeDialogFormVisible', { visible: true, type: 'add' })
 }
 // 修改用户
 const editUser = (row) => {
-  store.commit('user/changeDialogFormVisible', true, 'edit')
   store.dispatch('user/editUser', row.id)
 }
 // 分配角色

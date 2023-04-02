@@ -94,7 +94,6 @@ const dialogFormVisible = computed({
 })
 // 关闭对话框,并清空表单
 const dialogClose = () => {
-  formRef.value.resetFields()
   store.commit('user/clearForm')
 }
 // 确认提交

@@ -1,4 +1,4 @@
-import { getRights } from '@/api/rights'
+import { getRightsList } from '@/api/rights'
 import { ElMessage } from 'element-plus'
 const state = {
   // 权限列表
@@ -13,7 +13,7 @@ const mutations = {
 const actions = {
   // 获取权限列表
   async getRightsList({ commit }) {
-    const res = await getRights()
+    const res = await getRightsList()
     if (res.meta.status === 200) {
       commit('upDataRights', res.data)
       ElMessage.success('获取权限列表成功')
