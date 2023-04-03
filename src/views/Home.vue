@@ -3,7 +3,7 @@
     <el-header><Header /></el-header>
     <el-container>
       <el-aside :width="isCollapse ? '64px' : '200px'"><NavMenu /></el-aside>
-      <el-main>
+      <el-main style="overflow: hidden">
         <Breadcrumb></Breadcrumb>
         <router-view></router-view>
       </el-main>

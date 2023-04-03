@@ -72,7 +72,6 @@ const editRole = (row) => {
 // 设置角色权限
 const setRoles = (row, id) => {
   getDefaultKeys(row, roleKeys)
-  console.log(roleKeys)
   store.commit('roles/upDataDefaultKeys', { roleKeys, id })
   store.commit('roles/changeAssignDialogFormVisible', true)
 }
