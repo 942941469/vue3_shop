@@ -8,7 +8,7 @@ const state = {
   // 侧边栏是否展开
   isCollapse: false,
   // 菜单数据 如果刷新则使用本地存储
-  menus: getCache('login').menus || [],
+  menus: getCache('menus') || [],
   // 面包屑数据
   breadcrumbList: [],
   // 当前显示标签
@@ -58,6 +58,7 @@ const actions = {
     if (menu.meta.status !== 200) {
       throw 'error'
     }
+    setCache('menus', menu.data)
     commit('upDataMenus', menu.data)
   }
 }

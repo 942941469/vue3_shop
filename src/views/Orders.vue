@@ -39,7 +39,7 @@
         @current-change="handleCurrentChange"
       />
     </el-card>
-    <el-dialog v-model="editOrderDialogVisible" width="30%" title="编辑订单">
+    <el-dialog v-model="editOrderDialogVisible" width="20%" title="编辑订单">
       <el-form :model="editOrderForm" label-width="100px" ref="editOrderFormRef">
         <el-form-item label="订单价格: ">
           <el-col :span="13">

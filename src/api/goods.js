@@ -7,3 +7,10 @@ export function getGoods(data) {
     params: data
   })
 }
+// 删除商品数据
+export function deleteGoods(id) {
+  return http.instance.request({
+    url: `/goods/${id}`,
+    method: 'delete'
+  })
+}

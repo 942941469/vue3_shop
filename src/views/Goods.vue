@@ -14,7 +14,7 @@
       </el-form>
       <div class="table__header">
         <h2>商品列表</h2>
-        <el-button type="primary" @click="addUserDialog">添加商品</el-button>
+        <el-button type="primary">添加商品</el-button>
       </div>
       <el-table :data="goodsList" stripe border style="width: 100%">
         <el-table-column type="index" width="60" label="序号" />
@@ -23,7 +23,7 @@
         <el-table-column prop="goods_number" label="商品数量" />
         <el-table-column label="操作" width="400">
           <template v-slot="{ row }">
-            {{ row.goods_id }}
+            <el-button type="danger" @click="deleteGood(row)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -45,6 +45,8 @@
 import { Search, Refresh } from '@element-plus/icons-vue'
 import { computed, onMounted, ref } from 'vue'
 import { useStore } from 'vuex'
+import { ElMessage, ElMessageBox } from 'element-plus'
+import { deleteGoods } from '@/api/goods'
 const store = useStore()
 // 每页条数
 const pageSize = ref(5)
@@ -85,6 +87,25 @@ const resetForm = () => {
   pageNum.value = 1
   pageSize.value = 5
   store.dispatch('goods/getGoodsList', { pagenum: pageNum.value, pagesize: pageSize.value })
+}
+// 删除商品
+const deleteGood = (row) => {
+  ElMessageBox.confirm(`确认删除该商品吗`, '删除商品', {
+    confirmButtonText: 'OK',
+    cancelButtonText: 'Cancel',
+    type: 'warning'
+  }).then(async () => {
+    const res = await deleteGoods(row.goods_id)
+    if (res.meta.status === 200) {
+      ElMessage.success('删除成功')
+      await store.dispatch('goods/getGoodsList', {
+        pagenum: pageNum.value,
+        pagesize: pageSize.value
+      })
+    } else {
+      ElMessage.error('删除失败')
+    }
+  })
 }
 </script>
 
